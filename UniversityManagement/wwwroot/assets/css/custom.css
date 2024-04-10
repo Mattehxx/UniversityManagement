@@ -1,0 +1,197 @@
+@font-face {
+    font-family: Poppins;
+    src: url('/assets/fonts/poppins/Poppins-Regular.ttf');
+}
+
+:root {
+    --p-color: #DC4F4B;
+    --s-color: #2D2B70;
+
+    --p-color-o-40: rgb(220, 79, 75, .4);
+    --p-color-o-60: rgb(220, 79, 75, .6);
+    --p-color-o-80: rgb(220, 79, 75, .8);
+
+    --s-color-o-40: rgb(45, 43, 112, .4);
+    --s-color-o-60: rgb(45, 43, 112, .6);
+    --s-color-o-80: rgb(45, 43, 112, .8);
+}
+
+body{
+    font-family: Poppins;
+}
+
+.nav-pills .nav-link {
+    background-color: var(--p-color-o-40);
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--p-color);
+}
+
+.bg-primary {
+    background-color: var(--p-color) !important;
+}
+
+.bg-secondary {
+    background-color: var(--s-color) !important;
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    color: white;
+    background-color: var(--p-color-o-80);
+    filter: brightness(95%);
+}
+
+.nav-link:focus {
+    color: white;
+    background-color: var(--p-color);
+    filter: brightness(95%);
+}
+
+.nav-link:focus-visible {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+    box-shadow: var(--p-color-o-40);
+}
+
+.nav-link.active:hover {
+    color: white;
+}
+
+.nav-tabs .nav-link {
+    background-color: var(--p-color-o-60);
+    color: white;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--p-color);
+    color: white;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: var(--p-color-o-80);
+}
+
+.nav-tabs .nav-link:focus-visible {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+    box-shadow: var(--p-color-o-40);
+}
+
+.btn-primary {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+    filter: brightness(95%);
+}
+
+.btn-primary:active {
+    background-color: var(--p-color) !important;
+    border-color: var(--p-color) !important;
+}
+
+.btn-primary:focus-visible {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+    box-shadow: var(--p-color-o-40);
+}
+
+.btn-outline-primary {
+    background-color: white;
+    border-color: var(--p-color);
+    color: var(--p-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+    color: white;
+}
+
+.btn-outline-secondary {
+    background-color: white;
+    border-color: var(--s-color);
+    color: var(--s-color);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--s-color);
+    border-color: var(--s-color);
+    color: white;
+}
+
+.form-control:focus {
+    border-color: var(--p-color);
+    box-shadow: 0 0 0 0.25rem var(--p-color-o-40);
+}
+
+.form-select:focus {
+    border-color: var(--p-color);
+    box-shadow: 0 0 0 0.25rem var(--p-color-o-40);
+}
+
+.btn-open-sidebar{
+    display: none;
+}
+
+.header-title {
+    font-size: 4vh;
+}
+
+@media(max-width:900px){
+    .row{
+        flex-wrap:nowrap !important;
+    }
+}
+
+
+@media(max-width:960px){
+    #sidebarcolumn{
+        display: none;
+    }
+    .btn-open-sidebar{
+        display:inline-block;
+    }
+    .header-title {
+        font-size: 2.2vh !important;
+    }
+}
+
+
+@media(max-width:510px){
+    #carouselrow{
+        height:30% !important;
+    }
+}
+
+.form-check-input{
+    border-color: var(--p-color);
+}
+.form-check-input:active{
+    border-color: var(--p-color);
+}
+.form-check-input:checked{
+    background-color: var(--p-color);
+    border-color: var(--p-color);
+}
+.form-check-input:focus{
+    /*background-color: var(--p-color);*/
+    border-color: var(--p-color);
+    box-shadow: 0 0 0 0.25rem var(--p-color-o-40);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
+}
+
+.form-check-input:focus:checked{
+    /*background-color: var(--p-color);*/
+    border-color: var(--p-color);
+    box-shadow: 0 0 0 0.25rem var(--p-color-o-40);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}

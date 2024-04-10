@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+
+    <!-- PLUGINS CSS -->
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+    <!--END PLUGINS CSS -->
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <!-- END CUSTOM CSS -->
+</head>
+
+<body>
+    <div class="row mx-0 px-0" style="height: 100vh; width: 100vw;">
+        <div class="col-2 mx-0 px-0" id="sidebarcolumn">
+            <div class="h-100 bg-secondary" id="sidebar">
+                <!-- SIDEBAR CONTENT HERE -->
+            </div>
+        </div>
+        <div class="col mx-0 px-0">
+            <div class="row bg-secondary mx-0 px-0" style="height: 15%;">
+                <div class="col mx-0 px-0">
+                    <div class="h-100" id="header">
+                        <!-- HEADER CONTENT HERE -->
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-0 px-0" style="height: 85%; overflow-x: hidden;">
+                <div class="col mx-0 px-0">
+                    <div class="h-100 p-4 cardpadd" style="max-height: 85vh; overflow-y: auto; overflow-x: hidden;">
+                        <div class="card h-100 shadow" style="overflow-y: auto;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="btnGridTab" data-bs-toggle="tab"
+                                                    data-bs-target="#gridTab" type="button" role="tab">
+                                                    All courses
+                                                </button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#addTab"
+                                                    type="button" role="tab">
+                                                    Add
+                                                </button>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content" id="myTabContent">
+                                            <!-- GRID TAB -->
+                                            <div class="tab-pane fade show active" id="gridTab" role="tabpanel"
+                                                tabindex="0">
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-6 m-0 pt-3">
+                                                        <label for="inpSearchTitle" class="form-label">Search by
+                                                            title</label>
+                                                        <input type="text" class="form-control" id="inpSearchTitle"
+                                                            placeholder="Insert the title here..." maxlength="100"
+                                                            oninput="SearchCourse(this.value);">
+                                                    </div>
+                                                    <div class="col-4 m-0 pt-3 ps-4">
+                                                        <div class="form-check form-switch p-0">
+                                                            <div class="d-flex flex-column-reverse gap-1">
+                                                                <input class="form-check-input ms-0 mt-3"
+                                                                    type="checkbox" role="switch" id="swtType"
+                                                                    oninput="alsoNotActive = !alsoNotActive; FillCourseTable(allCoursesData);" />
+                                                                <label class="form-check-label" for="swtType">Show not
+                                                                    active courses</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-0 pt-3">
+                                                    <div class="col m-0 p-0">
+                                                        <table class="table table-bordered table-striped table-hover"
+                                                            style="text-align: center;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="d-none">Id</th>
+                                                                    <th>Title</th>
+                                                                    <th>Start Year</th>
+                                                                    <th>Type</th>
+                                                                    <th>Student Number</th>
+                                                                    <th>Exam Number</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="coursesTableBody"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END GRID TAB -->
+
+                                            <!-- ADD TAB -->
+                                            <div class="tab-pane fade" id="addTab" role="tabpanel" tabindex="0">
+                                                <div class="card">
+                                                    <div class="card-body h-100">
+                                                        <form id="addCourseForm" onsubmit="return AddCourse();">
+                                                            <div class="row">
+                                                                <div class="col-5">
+                                                                    <label for="inpTitle" class="form-label">Title</label>
+                                                                    <input type="text" class="form-control" id="inpTitle" maxlength="100"
+                                                                        required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-3">
+                                                                <div class="col-5">
+                                                                    <label for="inpStartYear"
+                                                                        class="form-label">StartYear</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="inpStartYear" min="1900" maxlength="7" step="1" required>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row mt-3">
+                                                                <div class="col-3">
+                                                                    <div class="form-check form-switch p-0">
+                                                                        <div class="d-flex flex-column-reverse gap-1">
+                                                                            <input class="form-check-input ms-0 mt-1"
+                                                                                type="checkbox" role="switch"
+                                                                                id="swtType" />
+                                                                            <label class="form-check-label"
+                                                                                for="swtType">Master</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12 mt-4 mb-4">
+                                                                <button class="btn btn-outline-primary" type="submit">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ADD TAB -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit
+                        Course</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="return EditCourse();">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpEditTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="inpEditTitle" maxlength="100" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpEditDate" class="form-label">Start Year</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="inpEditDate" min="1900" step="1" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check form-switch p-0">
+                                    <div class="d-flex flex-column-reverse gap-1">
+                                        <input class="form-check-input ms-0 mt-3" type="checkbox" role="switch"
+                                            id="swtEditType" />
+                                        <label class="form-check-label" for="swtEditType">Master</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END EDIT MODAL -->
+
+    <!-- ADD STUDENT MODAL -->
+    <div class="modal fade" tabindex="-1" id="addStudentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Add student to course</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm" onsubmit="return AddStudent();">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpStudentName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="inpStudentName" maxlength="50" required>
+                            </div>
+                            <div class="col">
+                                <label for="inpStudentSurname" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="inpStudentSurname" maxlength="50" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="inpStudentBirthDate" class="form-label">BirthDate</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="inpStudentBirthDate" maxlength="7" required>
+                                </div>
+                            </div>
+    
+                            <div class="col">
+                                <label for="inpStudentFC" class="form-label">Fiscal Code</label>
+                                <input type="text" class="form-control" id="inpStudentFC"
+                                    pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" maxlength="20" required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer mt-2">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-success">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END STUDENT MODAL -->
+
+    <div class="modal fade" id="examsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">All exams</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row m-0 p-0">
+                        <div class="col m-0">
+                            <label class="form-label me-3 d-block">Add exam to course</label>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addExamModal">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col m-0">
+                            <label class="form-label me-3 d-block">Download template file</label>
+                            <button type="button" class="btn btn-outline-secondary" onclick="DowloadTemplateFile();">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </div>
+                        <div class="col m-0">
+                            <div class="row m-0 p-0">
+                                <div class="col m-0 p-0">
+                                    <label class="form-label">Massive add exam to course</label>
+                                </div>
+                            </div>
+                            
+                            <div class="row m-0 p-0">
+                                <div class="col-10 m-0 p-0">
+                                    <input class="form-control" type="file" id="addMassiveExams">
+                                </div>
+                                <div class="col-2 m-0 ps-2">
+                                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" onclick="UploadFile();">
+                                        <i class="fa-solid fa-upload"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 p-0" style="overflow: auto;">
+                        <div class="col m-0 p-0">
+                            <table class="table table-bordered table-striped table-hover"
+                                style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th class="d-none">Id</th>
+                                        <th>Title</th>
+                                        <th>Credits</th>
+                                        <th>Course</th>
+                                        <th>Professor</th>
+                                        <th>Manage</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="examsTableBody">
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD EXAM MODAL -->
+    <div class="modal fade" id="addExamModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Add Exam</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="addExamForm" onsubmit="return AddExam();">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpExamTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="inpExamTitle" maxlength="50" required>
+                            </div>
+    
+                            <div class="col">
+                                <label for="inpExamCredits" class="form-label">Credits</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="inpExamCredits" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="slcExamProfessor" class="form-label">Professor</label>
+                                <select class="form-select" id="slcExamProfessor">
+                                    <option value="0">Select a Professor</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-success">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END EXAM MODAL -->
+
+    <!-- CONFIRM MODAL -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Confirm action</h1>
+                </div>
+                <div class="modal-body">
+                    Do you want to confirm this elimination?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="DeleteCourse();">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONFIRM MODAL -->
+
+    <!-- CONFIRM EXAM MODAL -->
+    <div class="modal fade" id="confirmExamModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Confirm action</h1>
+                </div>
+                <div class="modal-body">
+                    Do you want to confirm this elimination?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="DeleteExam();">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONFIRM EXAM MODAL -->
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="collapsedSidebar" style="max-width: 50vw;">
+		<!-- COLLAPSED SIDEBAR CONTENT HERE -->
+	</div>
+
+    <!-- PLUGINS JS -->
+    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugins/fontawesome/js/fontawesome.min.js"></script>
+    <script src="/assets/plugins/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/assets/plugins/notify/notify.min.js"></script>
+    <!-- END PLUGINS JS -->
+
+    <!-- CUSTOM JS -->
+    <script src="/assets/js/common.js"></script>
+    <script src="/assets/js/Courses.js"></script>
+    <!-- END CUSTOM JS -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            MountHtmlPage('/components/header.html', 'header');
+            MountHtmlPage('/components/sidebar.html', 'sidebar');
+            MountHtmlPage('/components/collapsedSidebar.html', 'collapsedSidebar');
+
+            OnElementAvailable('btnSidebarHome', () => {
+                ToggleActiveButtonSidebar('btnSidebarCourses');
+            });
+
+            OnElementAvailable('btnCollapsedSidebarCourses', () => {
+				ToggleActiveButtonSidebar('btnCollapsedSidebarCourses');
+			});
+
+            document.querySelector('#swtType').checked = false;
+        });
+    </script>
+</body>
+
+</html>

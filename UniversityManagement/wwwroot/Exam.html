@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exams</title>
+
+    <!-- PLUGINS CSS -->
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+    <!--END PLUGINS CSS -->
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <!-- END CUSTOM CSS -->
+</head>
+
+
+<body>
+    <div class="row mx-0 px-0" style="height: 100vh; width: 100vw;">
+        <div class="col-2 mx-0 px-0" id="sidebarcolumn">
+            <div class="h-100 bg-secondary" id="sidebar">
+                <!-- SIDEBAR CONTENT HERE -->
+            </div>
+        </div>
+        <div class="col mx-0 px-0">
+            <div class="row bg-secondary mx-0 px-0" style="height: 15%;">
+                <div class="col mx-0 px-0">
+                    <div class="h-100" id="header">
+                        <!-- HEADER CONTENT HERE -->
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row mx-0 px-0" style="height: 85%; overflow-x: hidden;">
+                <div class="col mx-0 px-0">
+                    <div class="h-100 p-4" style="max-height: 85vh; overflow-y: auto; overflow-x: hidden;">
+                        <div class="card h-100 shadow" style="overflow-y: auto;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#gridTab" type="button" role="tab">
+                                                    All Exams
+                                                </button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#addTab" type="button" role="tab">
+                                                    Add
+                                                </button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#exportTab" type="button" role="tab">
+                                                    Export exams
+                                                </button>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content" id="myTabContent">
+                                            <!-- GRID TAB -->
+                                            <div class="tab-pane fade show active" id="gridTab" role="tabpanel"
+                                                tabindex="0">
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-6 m-0 pt-3">
+                                                        <label for="inpSearchTitle" class="form-label">Search by
+                                                            exam or course name</label>
+                                                        <input type="text" class="form-control" id="inpSearchTitle"
+                                                            placeholder="Insert the exam or course name here..." maxlength="100"
+                                                            oninput="SearchExam(this.value);">
+                                                    </div>
+                                                </div>
+                                                <div class="row m-0 pt-3">
+                                                    <table class="table table-bordered table-striped table-hover"
+                                                        style="text-align: center;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="d-none">Id</th>
+                                                                <th>Title</th>
+                                                                <th>Credits</th>
+                                                                <th>Course</th>
+                                                                <th>Professor</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="examsTableBody">
+                                                            <!-- TABLE CONTENT HERE -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                            </table>
+
+                                            <!-- END GRID TAB -->
+
+                                            <!-- ADD TAB -->
+                                            <div class="tab-pane fade" id="addTab" role="tabpanel" tabindex="0">
+                                                <div class="card">
+                                                    <div class="card-body h-100">
+                                                        <form id="addExamForm" onsubmit="return AddExam();">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label for="inpTitle"
+                                                                        class="form-label">Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="inpTitle" maxlength="50" required>
+                                                                </div>
+
+                                                                <div class="col">
+                                                                    <label for="inpCredits"
+                                                                        class="form-label">Credits</label>
+                                                                    <div class="input-group">
+                                                                        <input type="number" class="form-control"
+                                                                            id="inpCredits" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label for="slcCourse"
+                                                                        class="form-label">Course</label>
+                                                                    <select class="form-select" id="slcCourse">
+                                                                        <option value="0">Select a course</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label for="slcProfessor"
+                                                                        class="form-label">Professor</label>
+                                                                    <select class="form-select" id="slcProfessor">
+                                                                        <option value="0">Select a Professor</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12 mt-4 mb-4">
+                                                                <button class="btn btn-outline-primary" type="submit">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ADD TAB -->
+
+                                            <!-- EXPORT TAB -->
+                                            <div class="tab-pane fade" id="exportTab" role="tabpanel" tabindex="0">
+                                                <div class="card">
+                                                    <div class="card-body h-100">
+                                                        <form id="exportExamsForm" onsubmit="return ExportExams();">
+                                                            <div class="row">
+                                                                <div class="col-4">
+                                                                    <label for="slcExportCourse" class="form-label">Course</label>
+                                                                    <select class="form-select" id="slcExportCourse">
+                                                                        <option value="0">Select a course</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                            <div class="row">
+                                                                <div class="col-12 mt-4 mb-4">
+                                                                    <button class="btn btn-outline-primary" type="submit">
+                                                                        Export
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END EXPORT TAB -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal fade" id="editExamModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit
+                        Exam</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="return EditExam();">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpEditTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="inpEditTitle" maxlength="50" required>
+                            </div>
+
+                            <div class="col">
+                                <label for="inpEditCredits" class="form-label">Credits</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="inpEditCredits" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="slcEditCourse" class="form-label">Course</label>
+                                <select class="form-select" id="slcEditCourse">
+                                    <option value="0">Select a course</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="slcEditProfessor" class="form-label">Professor</label>
+                                <select class="form-select" id="slcEditProfessor">
+                                    <option value="0">Select a Professor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-warning">Edit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END EDIT MODAL -->
+    <!--EXAM SESSION MODAL-->
+    <div class="modal fade" id="examSessionsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">All exam sessions</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row m-0 p-0">
+                        <div class="col m-0 p-0">
+                            <label class="form-label me-3">Add exam session to exam</label>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" 
+                            data-bs-target="#addExamSessionsModal" title="Add exam session">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-3 p-0">
+                        <div class="col m-0 p-0">
+                            <table class="table table-bordered table-striped table-hover"
+                                style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th class="d-none">Id</th>
+                                        <th>Dt</th>
+                                        <th>Location</th>
+                                        <th>Manage</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="examSessionsTableBody">
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END EXAM SESSION MODAL-->
+
+    <!--EDIT GRADES MODAL-->
+    <div class="modal fade" id="editGradesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Edit all exam session grades</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mt-3 p-0">
+                        <div class="col m-0 p-0">
+                            <table class="table table-bordered table-striped table-hover" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Suname</th>
+                                        <th>Mark</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="editGradesTableBody">
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="EditMassiveGrade();">
+                        Save marks
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--EDIT GRADES MODAL-->
+
+    <!-- ADD SESSION EXAM MODAL -->
+    <div class="modal fade" id="addExamSessionsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Add Exam Session</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="addExamForm" onsubmit="return AddExamSession();">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpExamSessionDt" class="form-label">Date Time</label>
+                                <input type="datetime-local" class="form-control" id="inpExamSessionDt" maxlength="7" required>
+                            </div>
+    
+                            <div class="col">
+                                <label for="inpExamSessionLocation" class="form-label">Location</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="inpExamSessionLocation" maxlength="200" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-success">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END SESSION EXAM MODAL -->
+    <!-- EXAM STUDENTS MODAL -->
+    <div class="modal fade" id="editExamStudentsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Students grades</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped table-hover" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th class="d-none">Id</th>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Mark</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentExamsTableBody">
+                            <!-- TABLE CONTENT HERE -->
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer mt-3">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END EXAM STUDENTS MODAL -->
+
+    <!-- ADD STUDENT MODAL -->
+    <div class="modal fade" tabindex="-1" id="addStudentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Add student to exam session</h1>
+                </div>
+                <div class="modal-body">
+                    <label for="slcAddStudents" class="form-label">Select one or more student to add to the exam session</label>
+                    <select class="form-select" id="slcAddStudents" multiple>
+
+                    </select>
+                </div>
+                <div class="modal-footer mt-2">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" onclick="AddStudents();">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END STUDENT MODAL -->
+
+    <!-- CONFIRM MODAL -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Confirm action</h1>
+                </div>
+                <div class="modal-body">
+                    Do you want to confirm this elimination?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                        onclick="DeleteExam();">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONFIRM MODAL -->
+
+    <!-- CONFIRM EXAM SESSION MODAL -->
+    <div class="modal fade" id="confirmExamSessionModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Confirm action</h1>
+                </div>
+                <div class="modal-body">
+                    Do you want to confirm this elimination?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                        onclick="DeleteExamSession();">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONFIRM EXAM SESSION MODAL -->
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="collapsedSidebar" style="max-width: 50vw;">
+        <!-- COLLAPSED SIDEBAR CONTENT HERE -->
+    </div>
+
+    <!-- PLUGINS JS -->
+    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugins/fontawesome/js/fontawesome.min.js"></script>
+    <script src="/assets/plugins/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/assets/plugins/notify/notify.min.js"></script>
+    <!-- END PLUGINS JS -->
+
+    <!-- CUSTOM JS -->
+    <script src="/assets/js/common.js"></script>
+    <script src="/assets/js/Exams.js"></script>
+    <!-- END CUSTOM JS -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            MountHtmlPage('/components/header.html', 'header');
+            MountHtmlPage('/components/sidebar.html', 'sidebar');
+            MountHtmlPage('/components/collapsedSidebar.html', 'collapsedSidebar');
+
+            OnElementAvailable('btnSidebarHome', () => {
+                ToggleActiveButtonSidebar('btnSidebarExams');
+            });
+
+            OnElementAvailable('btnCollapsedSidebarExams', () => {
+                ToggleActiveButtonSidebar('btnCollapsedSidebarExams');
+            })
+        });
+    </script>
+</body>
+
+</html>

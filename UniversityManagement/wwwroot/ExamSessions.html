@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Sessions</title>
+
+    <!-- PLUGINS CSS -->
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css">
+    <!--END PLUGINS CSS -->
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <!-- END CUSTOM CSS -->
+</head>
+
+<body>
+    <div class="row mx-0 px-0" style="height: 100vh; width: 100vw;">
+        <div class="col-2 mx-0 px-0" id="sidebarcolumn">
+            <div class="h-100 bg-secondary" id="sidebar">
+                <!-- SIDEBAR CONTENT HERE -->
+            </div>
+        </div>
+        <div class="col mx-0 px-0">
+            <div class="row bg-secondary mx-0 px-0" style="height: 15%;">
+                <div class="col mx-0 px-0">
+                    <div class="h-100" id="header">
+                        <!-- HEADER CONTENT HERE -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-0 px-0" style="height: 85%; overflow-x: hidden;">
+                <div class="col mx-0 px-0">
+                    <div class="h-100 p-4" style=" max-height: 85vh; overflow-y: auto; overflow-x: hidden;">
+                        <div class="card h-100 shadow" style="overflow-y: auto;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#gridTab" type="button" role="tab">
+                                                    All Exam Sessions
+                                                </button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#addTab" type="button" role="tab">
+                                                    Add
+                                                </button>
+                                            </li>
+                                        </ul>
+
+
+                                        <div class="tab-content" id="myTabContent">
+                                            <!-- GRID TAB -->
+                                            <div class="tab-pane fade show active" id="gridTab" role="tabpanel"
+                                                tabindex="0">
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-6 m-0 pt-3">
+                                                        <label for="inpSearchTitle" class="form-label">Search by exam
+                                                            title</label>
+                                                        <input type="text" class="form-control" id="inpSearchTitle"
+                                                            placeholder="Insert the title here..." maxlength="50"
+                                                            oninput="SearchExamSessions(this.value);">
+                                                    </div>
+                                                </div>
+                                                <div class="row m-0 pt-3">
+                                                    <div class="col m-0 p-0">
+                                                        <table class="table table-bordered table-striped table-hover"
+                                                            style="text-align: center;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="d-none">Id</th>
+                                                                    <th>DT Session</th>
+                                                                    <th>Location</th>
+                                                                    <th>Exam Title</th>
+                                                                    <th>Exam Credits</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="examsessionsTableBody">
+                                                                <!-- TABLE CONTENT HERE -->
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END GRID TAB -->
+
+                                            <!-- ADD TAB -->
+                                            <div class="tab-pane fade" id="addTab" role="tabpanel" tabindex="0">
+                                                <div class="card">
+                                                    <div class="card-body h-100">
+                                                        <form id="addExamSessionForm"
+                                                            onsubmit="return AddExamSession();">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label for="inpDateSession" class="form-label">DT
+                                                                        Session</label>
+                                                                    <input type="datetime-local" class="form-control"
+                                                                        id="inpDateSession" required>
+                                                                </div>
+
+                                                                <div class="col">
+                                                                    <label for="inpLocation"
+                                                                        class="form-label">Location</label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control"
+                                                                            id="inpLocation" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label for="slcExam" class="form-label">Exam</label>
+                                                                    <select class="form-select" id="slcExam">
+                                                                        <option value="0">Select a exam</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12 mt-4 mb-4">
+                                                                <button class="btn btn-outline-primary" type="submit">
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ADD TAB -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EDIT MODAL -->
+    <div class="modal fade" id="editExamSessionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit
+                        Session</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="return EditExamSession();">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inpEditDtSession" class="form-label">Dt Session</label>
+                                <input type="datetime-local" class="form-control" id="inpEditDtSession" maxlength="7" required>
+                            </div>
+
+                            <div class="col">
+                                <label for="inpEditLocation" class="form-label">Location</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="inpEditLocation" maxlength="200" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="slcEditExam" class="form-label">Exam</label>
+                                <select class="form-select" id="slcEditExam">
+                                    <option value="0">Select a exam</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-warning">Edit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END EDIT MODAL -->
+    <!-- CONFIRM MODAL -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Confirm action</h1>
+                </div>
+                <div class="modal-body">
+                    Do you want to confirm this elimination?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                        onclick="DeleteExamSession();">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONFIRM MODAL -->
+
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="collapsedSidebar" style="max-width: 50vw;">
+		<!-- COLLAPSED SIDEBAR CONTENT HERE -->
+	</div>
+
+    <!-- PLUGINS JS -->
+    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/plugins/fontawesome/js/fontawesome.min.js"></script>
+    <script src="/assets/plugins/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/assets/plugins/notify/notify.min.js"></script>
+    <!-- END PLUGINS JS -->
+
+    <!-- CUSTOM JS -->
+    <script src="/assets/js/common.js"></script>
+    <script src="/assets/js/ExamSessions.js"></script>
+    <!-- END CUSTOM JS -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            MountHtmlPage('/components/header.html', 'header');
+            MountHtmlPage('/components/sidebar.html', 'sidebar');
+			MountHtmlPage('/components/collapsedSidebar.html', 'collapsedSidebar');
+
+            OnElementAvailable('btnSidebarHome', () => {
+                ToggleActiveButtonSidebar('btnSidebarExamSessions');
+            });
+
+            OnElementAvailable('btnCollapsedSidebarExamSessions', () => {
+				ToggleActiveButtonSidebar('btnCollapsedSidebarExamSessions');
+			})
+        });
+    </script>
+</body>
+
+</html>
